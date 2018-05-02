@@ -13,13 +13,11 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 public class IndexFastScrollRecyclerView extends RecyclerView {
 
     private IndexFastScrollRecyclerSection mScroller = null;
-    private GestureDetector mGestureDetector = null;
 
     private boolean mEnabled = true;
 
@@ -105,7 +103,7 @@ public class IndexFastScrollRecyclerView extends RecyclerView {
                     if (typedArray.hasValue(R.styleable.IndexFastScrollRecyclerView_setPreviewTextColor)) {
                         mPreviewTextColor = Color.parseColor(typedArray.getString(R.styleable.IndexFastScrollRecyclerView_setPreviewTextColor));
                     }
-                    
+
                 } finally {
                     typedArray.recycle();
                 }
@@ -127,21 +125,9 @@ public class IndexFastScrollRecyclerView extends RecyclerView {
     public boolean onTouchEvent(MotionEvent ev) {
         if (mEnabled) {
             // Intercept ListView's touch event
-            if (mScroller != null && mScroller.onTouchEvent(ev))
+            if (mScroller != null && mScroller.onTouchEvent(ev)) {
                 return true;
-
-            if (mGestureDetector == null) {
-                mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
-
-                    @Override
-                    public boolean onFling(MotionEvent e1, MotionEvent e2,
-                                           float velocityX, float velocityY) {
-                        return super.onFling(e1, e2, velocityX, velocityY);
-                    }
-
-                });
             }
-            mGestureDetector.onTouchEvent(ev);
         }
 
         return super.onTouchEvent(ev);
