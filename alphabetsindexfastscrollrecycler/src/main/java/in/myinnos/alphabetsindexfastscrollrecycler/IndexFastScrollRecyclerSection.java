@@ -187,11 +187,9 @@ public class IndexFastScrollRecyclerSection extends RecyclerView.AdapterDataObse
             case MotionEvent.ACTION_MOVE:
                 if (mIsIndexing) {
                     // If this event moves inside index bar
-                    if (contains(ev.getX(), ev.getY())) {
-                        // Determine which section the point is in, and move the list to that section
-                        mCurrentSection = getSectionByPoint(ev.getY());
-                        scrollToPosition();
-                    }
+                    // Determine which section the point is in, and move the list to that section
+                    mCurrentSection = getSectionByPoint(ev.getY());
+                    scrollToPosition();
                     return true;
                 }
                 break;
