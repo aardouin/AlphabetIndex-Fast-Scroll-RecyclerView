@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.myinnos.indexfastscrollrecycler.R;
 
@@ -79,9 +79,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_alphabet)
+        @BindView(R.id.tv_alphabet)
         TextView mTextView;
-        @Bind(R.id.ib_alphabet)
+        @BindView(R.id.ib_alphabet)
         ImageButton mImageButton;
 
         ViewHolder(View itemView) {

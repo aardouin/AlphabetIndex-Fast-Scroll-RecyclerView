@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.myinnos.alphabetsindexfastscrollrecycler.IndexFastScrollRecyclerView;
 import in.myinnos.indexfastscrollrecycler.adapter.RecyclerViewAdapter;
@@ -16,7 +16,7 @@ import in.myinnos.indexfastscrollrecycler.utility.AlphabetItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.fast_scroller_recycler)
+    @BindView(R.id.fast_scroller_recycler)
     IndexFastScrollRecyclerView mRecyclerView;
 
     private List<String> mDataArray;
