@@ -9,9 +9,10 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -57,6 +58,8 @@ public class IndexFastScrollRecyclerView extends RecyclerView {
 
 
     private void init(Context context, AttributeSet attrs) {
+        mScroller = new IndexFastScrollRecyclerSection(context, this);
+
         if (attrs != null) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.IndexFastScrollRecyclerView, 0, 0);
 
@@ -109,7 +112,6 @@ public class IndexFastScrollRecyclerView extends RecyclerView {
                 }
             }
         }
-        mScroller = new IndexFastScrollRecyclerSection(context, this);
     }
 
     @Override
@@ -314,5 +316,9 @@ public class IndexFastScrollRecyclerView extends RecyclerView {
      */
     public void setIndexBarHighLateTextVisibility(boolean shown) {
         mScroller.setIndexBarHighLateTextVisibility(shown);
+    }
+
+    public void updateSections() {
+        mScroller.updateSections();
     }
 }

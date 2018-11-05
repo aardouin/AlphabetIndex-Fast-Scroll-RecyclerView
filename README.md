@@ -21,7 +21,11 @@ allprojects {
 And then in the other gradle file(may be your app gradle or your own module library gradle, but never add in both of them to avoid conflict.)
 ```java
 dependencies {
-    compile 'com.github.myinnos:AlphabetIndex-Fast-Scroll-RecyclerView:1.0.92'
+    // AppCompat version
+    // compile 'com.github.myinnos:AlphabetIndex-Fast-Scroll-RecyclerView:1.0.92'
+	
+	// AndroidX version
+	compile 'com.github.myinnos:AlphabetIndex-Fast-Scroll-RecyclerView:1.0.94'
 }
 ```          
 How to use
@@ -144,8 +148,12 @@ This library works with any layout manager but is optimized for the use with a L
 * :mag_right: LinkedIn: [PrabhakarThota](https://www.linkedin.com/in/prabhakarthota "Prabhakar Thota on LinkedIn")
 * :thumbsup: Twitter: [@myinnos](https://twitter.com/myinnos "Prabhakar Thota on twitter")   
 
-### Special Contributor
+### Special Contributors
 [@jonas-arkulpa](https://github.com/jonas-arkulpa "jonas-arkulpa")   
+[@MFlisar](https://github.com/MFlisar "MFlisar")   
+[@RaphaelMarion](https://github.com/RaphaelMarion "RaphaelMarion")   
+[@appspell](https://github.com/appspell "appspell")   
+[@Libernys](https://github.com/Libernys "Libernys")   
 
 License
 -------

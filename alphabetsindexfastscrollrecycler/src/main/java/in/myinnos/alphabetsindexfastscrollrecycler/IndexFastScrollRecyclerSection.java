@@ -11,12 +11,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+
+import androidx.annotation.ColorInt;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.support.annotation.ColorInt;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -228,7 +229,12 @@ public class IndexFastScrollRecyclerSection extends RecyclerView.AdapterDataObse
 
     public void setAdapter(RecyclerView.Adapter adapter) {
         if (adapter instanceof SectionIndexer) {
-            adapter.registerAdapterDataObserver(this);
+            try {
+                adapter.registerAdapterDataObserver(this);
+            } catch (IllegalStateException ex){
+                //Already registered then it's ok
+            }
+
             mIndexer = (SectionIndexer) adapter;
             mSections = (String[]) mIndexer.getSections();
         }
@@ -237,6 +243,10 @@ public class IndexFastScrollRecyclerSection extends RecyclerView.AdapterDataObse
     @Override
     public void onChanged() {
         super.onChanged();
+        updateSections();
+    }
+
+    public void updateSections() {
         mSections = (String[]) mIndexer.getSections();
     }
 
@@ -255,27 +265,22 @@ public class IndexFastScrollRecyclerSection extends RecyclerView.AdapterDataObse
         return (int) ((y - mIndexbarRect.top - mIndexbarMargin) / ((mIndexbarRect.height() - 2 * mIndexbarMargin) / mSections.length));
     }
 
-    private static final int WHAT_FADE_PREVIEW = 1;
+    private Runnable mLastFadeRunnable = null;
 
     private void fade(long delay) {
-        mHandler.removeMessages(0);
-        mHandler.sendEmptyMessageAtTime(WHAT_FADE_PREVIEW, SystemClock.uptimeMillis() + delay);
-    }
-
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            if (msg.what == WHAT_FADE_PREVIEW) {
-                mRecyclerView.invalidate();
+        if (mRecyclerView != null) {
+            if (mLastFadeRunnable != null) {
+                mRecyclerView.removeCallbacks(mLastFadeRunnable);
             }
-
+            mLastFadeRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    mRecyclerView.invalidate();
+                }
+            };
+            mRecyclerView.postDelayed(mLastFadeRunnable, delay);
         }
-
-    };
+    }
 
     private int convertTransparentValueToBackgroundAlpha(float value) {
         return (int) (255 * value);
